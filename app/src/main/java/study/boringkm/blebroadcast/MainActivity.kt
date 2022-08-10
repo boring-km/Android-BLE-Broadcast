@@ -20,17 +20,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import study.boringkm.blebroadcast.ui.theme.BleBroadcastTheme
 
@@ -50,7 +50,6 @@ class MainActivity : ComponentActivity() {
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     companion object {
-        private const val REQUEST_CODE = 999
         private const val PERMISSION_CODE = 1001
         private const val SCAN_PERIOD = 10000L
     }
@@ -142,14 +141,6 @@ class MainActivity : ComponentActivity() {
                         }) {
                             Text("스캔 멈추기")
                         }
-
-                        LazyColumn {
-                            itemsIndexed(
-                                listOf(1, 2, 3)
-                            ) { index, item ->
-                                DeviceInfoCard(name = "name", address = "address")
-                            }
-                        }
                     }
                 }
             }
@@ -192,24 +183,6 @@ class MainActivity : ComponentActivity() {
             mScanning = false
             Log.i("ble_scan", "stop")
             bluetoothLeScanner.stopScan(leScanCallback)
-        }
-    }
-
-    @Composable
-    fun DeviceInfoCard(name: String, address: String) {
-        Card(
-            Modifier
-                .padding(12.dp)
-                .border(width = 4.dp, color = Color.Black)
-                .fillMaxWidth()
-                .height(30.dp)
-        ) {
-            Box(contentAlignment = Alignment.Center) {
-                Row {
-                    Text(modifier = Modifier.padding(horizontal = 8.dp), text = name)
-                    Text(modifier = Modifier.padding(horizontal = 8.dp), text = address)
-                }
-            }
         }
     }
 }
